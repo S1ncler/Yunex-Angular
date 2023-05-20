@@ -1,0 +1,10 @@
+<app-navbar></app-navbar>
+<div class="container-fluid d-flex w-100 main" >
+    <!-- contenedor de la barra lateral con la informacion de horas -->
+    <app-aside></app-aside>
+    <!-- seccion con las tarjetas de cada reporte de horas de cada mes -->
+    <section class="col-9 p-3 container-fluid d-flex flex-wrap justify-content-around">
+        <app-cards *ngFor="let card of cards"></app-cards>
+    </section>
+  </div>
+<app-footer></app-footer>

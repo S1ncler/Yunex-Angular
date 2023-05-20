@@ -1,0 +1,81 @@
+<div class="d-flex flex-column align-content-between justify-content-between" style="min-height: 100vh; margin: none;">
+<app-navbar></app-navbar>
+<section
+  class="container-fluid align-content-center justify-content-center w-100 pt-3 mt-3 mb-3"
+>
+  <!-- espacio izquierdo -->
+  <div class="col-1 col-sm-1 col-md-3 col-xl-4 col-xxl-4"></div>
+  <!-- espacio central con el contenido del login -->
+  <div
+    class="col-10 col-sm-10 col-md-6 col-xl-4 col-xxl-4 container-fluid rounded-4 loginContainer mt-3 mb-3"
+  >
+    <!-- espacio para el titulo login -->
+    <div class="row align-content-center justify-content-center">
+      <div
+        class="col-12 text-center justify-content-center align-content-center w-100 pt-4 mb-4"
+      >
+        <span class="textoIngresar">Iniciar Sesion</span>
+      </div>
+      <!-- espacio del formulario -->
+      <div class="row">
+        <form class="container col-12" action="" data-login id="form-login">
+          <!-- div correo -->
+          <div class="row pt-2 m-2">
+            <div class="input-group mb-3">
+              <input
+                type="email"
+                class="form-control"
+                id="telOrEmail"
+                name="Email"
+                placeholder="Correo"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+                [(ngModel)]="email"
+                required
+                #emailInput="ngModel"
+              />
+            </div>
+            <div class="alert alert-danger" [hidden]="correctEmailForm">
+              Ingrese un Email valido
+            </div>
+            <div class="alert alert-danger" [hidden]="emailEmpty">
+              Por favor ingrese un email
+            </div>
+          </div>
+          <!-- div contraseña -->
+          <div class="row pt-2 m-2">
+            <div class="input-group mb-3">
+              <input
+                type="password"
+                class="form-control"
+                id="pass"
+                name="pass"
+                placeholder="Contraseña"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+                [(ngModel)]="password"
+                required
+              />
+            </div>
+            <div class="alert alert-danger" [hidden]="passwordEmpty">
+              Por favor ingrese una contraseña
+            </div>
+            <div class="alert alert-danger" [hidden]="loginOk">
+              Usuario o contraseña incorrectos
+            </div>
+            <a class="text-decoration-none align-text-bottom" href="#"
+              >Olvidaste tu contraseña</a
+            >
+          </div>
+          <div class="row ps-5 pe-5 mb-5 mt-5">
+            <button type="submit" class="btn btn-primary" (click)="login()">Ingresar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- espacio derecho -->
+  <div class="col-1 col-sm-1 col-md-3 col-xl-4 col-xxl-4"></div>
+</section>
+<app-footer></app-footer>
+</div>
