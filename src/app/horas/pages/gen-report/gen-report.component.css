@@ -1,0 +1,13 @@
+.mat-mdc-form-field + .mat-mdc-form-field {
+  margin-left: 8px;
+}
+.mat-expansion-panel{
+    background-color: rgba(255, 255, 255, 0.897);
+}
+.main {
+  min-height: 80vh;
+  max-width: 800px;
+}
+.horario{
+  max-width: 300px;
+}
