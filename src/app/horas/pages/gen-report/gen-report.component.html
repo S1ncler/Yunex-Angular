@@ -9,60 +9,65 @@
       <mat-expansion-panel-header class="p-5">
         <mat-panel-title>
           <mat-form-field>
-            <mat-label>{{ week }}</mat-label>
-            <mat-select (click)="$event.stopPropagation()">
+            <mat-label>{{ week.semana }}</mat-label>
+            <mat-select
+              (click)="$event.stopPropagation()"
+              (selectionChange)="imprimir()"
+              [disabled]="week.horarios.horarioGeneralSemana.disabled"
+              [(ngModel)]="week.horarios.horarioGeneralSemana.valor"
+            >
+              <mat-option *ngFor="let horario of horarios" [value]="horario">
+                {{ horario }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Fin de {{ week.semana }}</mat-label>
+            <mat-select
+              (click)="$event.stopPropagation()"
+              (selectionChange)="imprimir()"
+              [disabled]="week.horarios.horarioGeneralFinSemana.disabled"
+              [(ngModel)]="week.horarios.horarioGeneralFinSemana.valor"
+            >
               <mat-option *ngFor="let horario of horarios" [value]="horario">
                 {{ horario }}
               </mat-option>
             </mat-select>
           </mat-form-field>
         </mat-panel-title>
-        <mat-panel-description> Click aqui si trabajaste horas extras </mat-panel-description>
+        <mat-panel-description>
+          Click aqui si trabajaste horas extras
+        </mat-panel-description>
       </mat-expansion-panel-header>
-      <div *ngIf="week.includes('Semana')">
-        <div *ngFor="let day of weekDays">
-          <label class="form-label me-3">{{ day }} Ingresa el horario completo de trabajo</label>
-          <div class="d-flex flex-wrap p-2">
-            <mat-form-field>
-              <mat-label>Inicio</mat-label>
-              <mat-select (click)="$event.stopPropagation()">
-                <mat-option *ngFor="let hora of horas" [value]="hora">
-                  {{ hora }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Fin</mat-label>
-              <mat-select (click)="$event.stopPropagation()">
-                <mat-option *ngFor="let hora of horas" [value]="hora">
-                  {{ hora }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
-      </div>
-      <div *ngIf="week.includes('Fin de semana')">
-        <div *ngFor="let day of weekendDays">
-          <label class="form-label me-3">{{ day }}</label>
-          <div class="d-flex flex-wrap p-2">
-            <mat-form-field>
-              <mat-label>Inicio</mat-label>
-              <mat-select (click)="$event.stopPropagation()">
-                <mat-option *ngFor="let hora of horas" [value]="hora">
-                  {{ hora }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Fin</mat-label>
-              <mat-select (click)="$event.stopPropagation()">
-                <mat-option *ngFor="let hora of horas" [value]="hora">
-                  {{ hora }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
+      <div *ngFor="let day of weekDays; let i = index">
+        <label class="form-label me-3"
+          >{{ day }} Ingresa el horario completo de trabajo</label
+        >
+        <div class="d-flex flex-wrap p-2">
+          <mat-form-field>
+            <mat-label>Inicio</mat-label>
+            <mat-select
+              (click)="$event.stopPropagation()"
+              (selectionChange)="imprimir()"
+              [(ngModel)]="week.horarios.horariosDiarios[i].inicio"
+            >
+              <mat-option *ngFor="let hora of horas" [value]="hora">
+                {{ hora }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Fin</mat-label>
+            <mat-select
+              (click)="$event.stopPropagation()"
+              (selectionChange)="imprimir()"
+              [(ngModel)]="week.horarios.horariosDiarios[i].fin"
+            >
+              <mat-option *ngFor="let hora of horas" [value]="hora">
+                {{ hora }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
       </div>
     </mat-expansion-panel>
