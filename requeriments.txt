@@ -1,0 +1,11 @@
+debe mostrar las semanas que hacen parte del periodo ya
+
+en cada semana debe dar la opcion de escoger un horario general o escoger por dias el horario especifico ya
+
+debe verificar que si se trabaja una semana de noche el fin de semana anterior y siguiente no pueden tener horario ya
+
+debe asignar los dias festivos automaticamente
+
+debe contar el total de horas extras
+
+debe guardar las horas extras si se superan las 48 en el periodo

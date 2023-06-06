@@ -14,7 +14,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { NgFor } from '@angular/common';
-import { CardNewReportComponent } from './components/card-new-report/card-new-report.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,8 @@ import { CardNewReportComponent } from './components/card-new-report/card-new-re
     NgFor,
     MatInputModule,
     FormsModule,
+    MatCheckboxModule,
+    MatButtonModule,
   ],
 })
 export class HorasModule {}

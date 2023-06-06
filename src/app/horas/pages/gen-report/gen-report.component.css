@@ -6,8 +6,12 @@
 }
 .main {
   min-height: 80vh;
-  max-width: 800px;
+  max-width: 850px;
 }
 .horario{
   max-width: 300px;
+}
+.finalizar{
+  height: 80px;
+  width: 300px;
 }
