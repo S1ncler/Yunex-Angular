@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
+import { ThemePalette } from '@angular/material/core';
+import { GenReportService } from '../../services/gen-report.service';
 
-interface Food {
-  value: string;
-  viewValue: string;
+export interface Task {
+  name: string;
+  completed: boolean;
+  color: ThemePalette;
+  subtasks?: Task[];
 }
 
 @Component({
@@ -12,73 +16,8 @@ interface Food {
 })
 export class GenReportComponent {
   panelOpenState = false;
+  allComplete: boolean = false;
 
-  weeks = [
-    {
-      semana: 'Semana 1',
-      horarios: {
-        horarioGeneralSemana: { valor: '', disabled: false },
-        horarioGeneralFinSemana: { valor: '', disabled: false },
-        horariosDiarios: [
-          { inicio: '', fin: '' },
-          { inicio: '', fin: '' },
-          { inicio: '', fin: '' },
-          { inicio: '', fin: '' },
-          { inicio: '', fin: '' },
-          { inicio: '', fin: '' },
-          { inicio: '', fin: '' },
-        ],
-      },
-    },
-    {
-      semana: 'Semana 2',
-      horarios: {
-        horarioGeneralSemana: { valor: '', disabled: false },
-        horarioGeneralFinSemana: { valor: '', disabled: false },
-        horariosDiarios: [
-          { inicio: '', fin: '' },
-          { inicio: '', fin: '' },
-          { inicio: '', fin: '' },
-          { inicio: '', fin: '' },
-          { inicio: '', fin: '' },
-          { inicio: '', fin: '' },
-          { inicio: '', fin: '' },
-        ],
-      },
-    },
-    {
-      semana: 'Semana 3',
-      horarios: {
-        horarioGeneralSemana: { valor: '', disabled: false },
-        horarioGeneralFinSemana: { valor: '', disabled: false },
-        horariosDiarios: [
-          { inicio: '', fin: '' },
-          { inicio: '', fin: '' },
-          { inicio: '', fin: '' },
-          { inicio: '', fin: '' },
-          { inicio: '', fin: '' },
-          { inicio: '', fin: '' },
-          { inicio: '', fin: '' },
-        ],
-      },
-    },
-    {
-      semana: 'Semana 4',
-      horarios: {
-        horarioGeneralSemana: { valor: '', disabled: false },
-        horarioGeneralFinSemana: { valor: '', disabled: false },
-        horariosDiarios: [
-          { inicio: '', fin: '' },
-          { inicio: '', fin: '' },
-          { inicio: '', fin: '' },
-          { inicio: '', fin: '' },
-          { inicio: '', fin: '' },
-          { inicio: '', fin: '' },
-          { inicio: '', fin: '' },
-        ],
-      },
-    },
-  ];
   weekDays = [
     'Lunes',
     'Martes',
@@ -97,7 +36,7 @@ export class GenReportComponent {
   ];
   horas: string[] = [''];
 
-  constructor() {
+  constructor(public genReportService: GenReportService) {
     for (let i = 0; i < 24; i++) {
       if (i < 10) {
         this.horas.push(`0${i}:00`);
@@ -110,91 +49,123 @@ export class GenReportComponent {
     }
   }
 
-  onOption1Change(event: Event) {}
-
-  foods: Food[] = [
-    { value: 'steak-0', viewValue: 'Steak' },
-    { value: 'pizza-1', viewValue: 'Pizza' },
-    { value: 'tacos-2', viewValue: 'Tacos' },
-  ];
+  crear(){
+    this.genReportService.create()
+  }
 
   imprimir() {
-    for (let w = 0; w < this.weeks.length; w++) {
+    for (let w = 0; w < this.genReportService.weeks.get().length; w++) {
       if (w !== 0) {
-        if (
-          this.weeks[w].horarios.horarioGeneralSemana.valor === '21:00 - 06:00'
-        ) {
-          this.weeks[Number(w) - 1].horarios.horarioGeneralFinSemana.valor =
-            '21:00 - 06:00';
-          this.weeks[w].horarios.horarioGeneralFinSemana.valor =
-            'No se trabajó';
-          this.weeks[Number(w) - 1].horarios.horarioGeneralFinSemana.disabled =
-            true;
-        } else if (
-          this.weeks[Number(w) - 1].horarios.horarioGeneralFinSemana
-            .disabled === true
-        ) {
-          this.weeks[Number(w) - 1].horarios.horarioGeneralFinSemana.valor = '';
-          this.weeks[w].horarios.horarioGeneralFinSemana.valor = '';
-          this.weeks[Number(w) - 1].horarios.horarioGeneralFinSemana.disabled =
-            false;
+        if (this.genReportService.weeks.get()[w].horarios.horarioGeneralSemana.valor === '21:00 - 06:00') {
+          this.genReportService.weeks.get()[Number(w) - 1].horarios.horarioGeneralFinSemana.valor = '21:00 - 06:00';
+          this.genReportService.weeks.get()[w].horarios.horarioGeneralFinSemana.valor = 'No se trabajó';
+          this.genReportService.weeks.get()[Number(w) - 1].horarios.horarioGeneralFinSemana.disabled = true;
+        } else if (this.genReportService.weeks.get()[Number(w) - 1].horarios.horarioGeneralFinSemana.disabled === true) {
+          this.genReportService.weeks.get()[Number(w) - 1].horarios.horarioGeneralFinSemana.valor = '';
+          this.genReportService.weeks.get()[w].horarios.horarioGeneralFinSemana.valor = '';
+          this.genReportService.weeks.get()[Number(w) - 1].horarios.horarioGeneralFinSemana.disabled = false;
         }
       } else {
         if (
-          this.weeks[w].horarios.horarioGeneralSemana.valor ===
-            '21:00 - 06:00' &&
-          this.weeks[w].horarios.horarioGeneralFinSemana.valor === ''
+          this.genReportService.weeks.get()[w].horarios.horarioGeneralSemana.valor === '21:00 - 06:00' &&
+          this.genReportService.weeks.get()[w].horarios.horarioGeneralFinSemana.valor === ''
         ) {
-          this.weeks[w].horarios.horarioGeneralFinSemana.valor =
-            'No se trabajó';
+          this.genReportService.weeks.get()[w].horarios.horarioGeneralFinSemana.valor = 'No se trabajó';
         }
         if (
-          this.weeks[w].horarios.horarioGeneralSemana.valor !==
-            '21:00 - 06:00' &&
-          this.weeks[w].horarios.horarioGeneralFinSemana.valor ===
-            'No se trabajó'
+          this.genReportService.weeks.get()[w].horarios.horarioGeneralSemana.valor !== '21:00 - 06:00' &&
+          this.genReportService.weeks.get()[w].horarios.horarioGeneralFinSemana.valor === 'No se trabajó'
         ) {
-          this.weeks[w].horarios.horarioGeneralFinSemana.valor = '';
+          this.genReportService.weeks.get()[w].horarios.horarioGeneralFinSemana.valor = '';
         }
       }
     }
-    for (let w = 0; w < this.weeks.length; w++) {
+    for (let w = 0; w < this.genReportService.weeks.get().length; w++) {
       let i = 0;
-      for (let horario of this.weeks[w].horarios.horariosDiarios) {
+      for (let horario of this.genReportService.weeks.get()[w].horarios.horariosDiarios) {
         if (i < 5) {
           horario.inicio =
-            this.weeks[w].horarios.horarioGeneralSemana.valor.split(' ')[0];
+          this.genReportService.weeks.get()[w].horarios.horarioGeneralSemana.valor.split(' ')[0];
           horario.fin =
-            this.weeks[w].horarios.horarioGeneralSemana.valor.split(' ')[2];
+          this.genReportService.weeks.get()[w].horarios.horarioGeneralSemana.valor.split(' ')[2];
         }
         if (
           i >= 5 &&
-          this.weeks[w].horarios.horarioGeneralFinSemana.valor !== ''
+          this.genReportService.weeks.get()[w].horarios.horarioGeneralFinSemana.valor !== ''
         ) {
           horario.inicio =
-            this.weeks[w].horarios.horarioGeneralFinSemana.valor.split(' ')[0];
+          this.genReportService.weeks.get()[w].horarios.horarioGeneralFinSemana.valor.split(' ')[0];
           horario.fin =
-            this.weeks[w].horarios.horarioGeneralFinSemana.valor.split(' ')[2];
-        } else if(i >= 5){
+          this.genReportService.weeks.get()[w].horarios.horarioGeneralFinSemana.valor.split(' ')[2];
+        } else if (i >= 5) {
           if (
-            this.weeks[w].horarios.horarioGeneralSemana.valor ===
+            this.genReportService.weeks.get()[w].horarios.horarioGeneralSemana.valor ===
               '06:00 - 14:00' &&
             i < 6
           ) {
             horario.inicio =
-              this.weeks[w].horarios.horarioGeneralSemana.valor.split(
-                ' '
-              )[0];
+            this.genReportService.weeks.get()[w].horarios.horarioGeneralSemana.valor.split(' ')[0];
             horario.fin =
-              this.weeks[w].horarios.horarioGeneralSemana.valor.split(
-                ' '
-              )[2];
+            this.genReportService.weeks.get()[w].horarios.horarioGeneralSemana.valor.split(' ')[2];
           } else {
             horario.inicio = '';
             horario.fin = '';
           }
         }
         i++;
+      }
+    }
+  }
+
+  updateAllComplete(semana: string, checkType: string) {
+    for (let i = 0; i < this.genReportService.weeks.get().length; i++) {
+      if (this.genReportService.weeks.get()[i].semana === semana) {
+        if (
+          checkType === 'alm' ||
+          checkType === 'trans' ||
+          checkType === 'cond'
+        ) {
+          if (this.genReportService.weeks.get()[i].horarios.horariosDiarios.every((t: any) => t[checkType]))
+            this.allComplete = true;
+        }
+      }
+    }
+  }
+
+  someComplete(semana: string, checkType: string): boolean {
+    for (let i = 0; i < this.genReportService.weeks.get().length; i++) {
+      if (this.genReportService.weeks.get()[i].semana === semana) {
+        if (
+          checkType === 'alm' ||
+          checkType === 'trans' ||
+          checkType === 'cond'
+        ) {
+          return (
+            this.genReportService.weeks.get()[i].horarios.horariosDiarios.filter((t: any) => t[checkType]).length >
+              0 && !this.allComplete
+          );
+        }
+      }
+    }
+    return false;
+  }
+
+  setAll(completed: boolean, semana: string, checkType: string) {
+    this.allComplete = completed;
+    for (let i = 0; i < this.genReportService.weeks.get().length; i++) {
+      if (this.genReportService.weeks.get()[i].semana === semana) {
+        if (
+          checkType === 'alm' ||
+          checkType === 'trans' ||
+          checkType === 'cond'
+        ) {
+          this.genReportService.weeks.get()[i].horarios.horariosDiarios.forEach((t: any) => {
+            if (t.inicio !== '' && t.fin !== '') {
+              t[checkType] = completed;
+            }
+            if (completed === false) t[checkType] = completed;
+          });
+        }
       }
     }
   }
