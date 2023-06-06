@@ -13,9 +13,8 @@ interface Food {
 export class GenReportComponent {
 
   panelOpenState = false;
-  weeks = ['Semana 1', 'Fin de semana 1', 'Semana 2', 'Fin de semana 2', 'Semana 3', 'Fin de semana 3', 'Semana 4', 'Fin de semana 4'];
-  weekDays = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'];
-  weekendDays = ['Sabado', 'Domingo'];
+  weeks = ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'];
+  weekDays = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
   horarios = ['No se trabajo', '6:00 - 16:30', '11:30 - 22:00', '21:00 - 6:00'];
   horas: string[] = [""]
 

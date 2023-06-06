@@ -7,4 +7,5 @@ import { Component } from '@angular/core';
 })
 export class PrincipalComponent {
   cards = [1,1,1]
+  newReport = true;
 }

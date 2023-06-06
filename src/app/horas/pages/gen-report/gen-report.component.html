@@ -17,34 +17,20 @@
             </mat-select>
           </mat-form-field>
         </mat-panel-title>
-        <mat-panel-description> Click aqui si trabajaste horas extras </mat-panel-description>
+        <mat-panel-description> 
+          <mat-form-field>
+            <mat-label>Fin de {{ week }}</mat-label>
+            <mat-select (click)="$event.stopPropagation()">
+              <mat-option *ngFor="let horario of horarios" [value]="horario">
+                {{ horario }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <span class="ms-3">Click aqui si trabajaste horas extras</span> </mat-panel-description>
       </mat-expansion-panel-header>
       <div *ngIf="week.includes('Semana')">
         <div *ngFor="let day of weekDays">
           <label class="form-label me-3">{{ day }} Ingresa el horario completo de trabajo</label>
-          <div class="d-flex flex-wrap p-2">
-            <mat-form-field>
-              <mat-label>Inicio</mat-label>
-              <mat-select (click)="$event.stopPropagation()">
-                <mat-option *ngFor="let hora of horas" [value]="hora">
-                  {{ hora }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Fin</mat-label>
-              <mat-select (click)="$event.stopPropagation()">
-                <mat-option *ngFor="let hora of horas" [value]="hora">
-                  {{ hora }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
-      </div>
-      <div *ngIf="week.includes('Fin de semana')">
-        <div *ngFor="let day of weekendDays">
-          <label class="form-label me-3">{{ day }}</label>
           <div class="d-flex flex-wrap p-2">
             <mat-form-field>
               <mat-label>Inicio</mat-label>

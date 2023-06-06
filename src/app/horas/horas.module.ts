@@ -14,6 +14,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { NgFor } from '@angular/common';
+import { CardNewReportComponent } from './components/card-new-report/card-new-report.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { NgFor } from '@angular/common';
     FormHorasSemanaComponent,
     AsideComponent,
     GenReportComponent,
+    CardNewReportComponent,
   ],
   imports: [
     CommonModule,

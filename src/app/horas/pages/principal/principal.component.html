@@ -5,6 +5,7 @@
     <!-- seccion con las tarjetas de cada reporte de horas de cada mes -->
     <section class="col-9 p-3 container-fluid d-flex flex-wrap justify-content-around">
         <app-cards *ngFor="let card of cards"></app-cards>
+        <app-card-new-report *ngIf="newReport"></app-card-new-report>
     </section>
   </div>
 <app-footer></app-footer>
