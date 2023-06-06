@@ -9,8 +9,26 @@
       <mat-expansion-panel-header class="p-5">
         <mat-panel-title>
           <mat-form-field>
-            <mat-label>{{ week }}</mat-label>
-            <mat-select (click)="$event.stopPropagation()">
+            <mat-label>{{ week.semana }}</mat-label>
+            <mat-select
+              (click)="$event.stopPropagation()"
+              (selectionChange)="imprimir()"
+              [disabled]="week.horarios.horarioGeneralSemana.disabled"
+              [(ngModel)]="week.horarios.horarioGeneralSemana.valor"
+            >
+              <mat-option *ngFor="let horario of horarios" [value]="horario">
+                {{ horario }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Fin de {{ week.semana }}</mat-label>
+            <mat-select
+              (click)="$event.stopPropagation()"
+              (selectionChange)="imprimir()"
+              [disabled]="week.horarios.horarioGeneralFinSemana.disabled"
+              [(ngModel)]="week.horarios.horarioGeneralFinSemana.valor"
+            >
               <mat-option *ngFor="let horario of horarios" [value]="horario">
                 {{ horario }}
               </mat-option>
